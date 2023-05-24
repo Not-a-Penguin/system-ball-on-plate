@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/test.dir/tests/websocketTest.cpp.o -o test  -lpthread serialComm/libSerial.a serialComm/libserialib.a websocket/libWebsocket.a 
