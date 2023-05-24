@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/eduardo/Downloads/ball-on-plate/websocket/websocketServer.cpp
+websocketServer.h
+/home/eduardo/Downloads/ball-on-plate/websocket/websocketServer.h
+iostream
+-
+ostream
+-
+sstream
+-
+string
+-
+websocketpp/common/thread.hpp
+-
+websocketpp/frame.hpp
+-
+
+/home/eduardo/Downloads/ball-on-plate/websocket/websocketServer.h
+string
+-
+websocketpp/config/asio_no_tls.hpp
+-
+websocketpp/server.hpp
+-
+websocketpp/common/thread.hpp
+-
+iostream
+-
+set
+-
+

@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/eduardo/Downloads/ball-on-plate/serialComm/serialib.cpp
+serialib.h
+/home/eduardo/Downloads/ball-on-plate/serialComm/serialib.h
+
+/home/eduardo/Downloads/ball-on-plate/serialComm/serialib.h
+sys/time.h
+-
+sys/time.h
+-
+windows.h
+-
+stdlib.h
+-
+sys/types.h
+-
+sys/shm.h
+-
+termios.h
+-
+string.h
+-
+iostream
+-
+sys/time.h
+-
+fcntl.h
+-
+unistd.h
+-
+sys/ioctl.h
+-
+
