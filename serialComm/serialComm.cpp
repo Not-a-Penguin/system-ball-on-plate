@@ -35,6 +35,7 @@ int Serial::getJson(){
       messageFromSerial += rc;
     }
     this->newData = true;
+    this->rawMessage = messageFromSerial;
   }
   
   if(this->newData){
@@ -78,8 +79,8 @@ int Serial::parseCoordinates(string& docFromSerial){
   
   
   if(jsonFromSerial["xPos"].IsNumber() && jsonFromSerial["yPos"].IsNumber()){
-    this->xPos = jsonFromSerial["xPos"].GetInt();
-    this->yPos = jsonFromSerial["yPos"].GetInt();
+    this->xPos = jsonFromSerial["xPos"].GetFloat();
+    this->yPos = jsonFromSerial["yPos"].GetFloat();
 
     return 0;
   }

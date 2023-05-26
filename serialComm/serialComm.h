@@ -24,12 +24,14 @@ class Serial{
     int sendJson();    
   
     bool newData = false;
+
+    string rawMessage;
   //Specific to ball on plate, parse json looking for x and y coordinates
   //and pass them to class atributes
     int parseCoordinates(string& jsonFromSerial);
 
-    int xPos;
-    int yPos;
+    float xPos;
+    float yPos;
 
     
 

@@ -13,7 +13,7 @@ add_subdirectory(websocket)
 
 find_package (Threads REQUIRED)
 
-add_executable(test tests/websocketTest.cpp)
+add_executable(test tests/serialWithWebsocket.cpp)
 
 target_link_libraries(test PUBLIC ${CMAKE_THREAD_LIBS_INIT}
 )
