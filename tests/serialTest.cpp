@@ -15,8 +15,9 @@ int main(){
 
   while(1){
     
-    auto start = high_resolution_clock::now();
-    serial.getJson();
+    // auto start = high_resolution_clock::now();
+    //serial.getJson();
+    /*
     if(serial.newData){
       cout << "X: " << serial.xPos << " || Y: " << serial.yPos << endl;
       serial.newData = false;
@@ -25,7 +26,11 @@ int main(){
       auto duration = duration_cast<microseconds>(stop - start);
  
       cout << "Time between cycles: " << duration.count()/1000 << "ms" << endl;
-    }
+    }*/
+
+    serial.sendJson("{\"servo1\"10\"}");
+    sleep(1);
+
   }
 
   /*

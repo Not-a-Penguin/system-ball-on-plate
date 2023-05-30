@@ -89,8 +89,11 @@ int Serial::parseCoordinates(string& docFromSerial){
       
 }
 
-int Serial::sendJson(){
+int Serial::sendJson(string messageToSerial){
 
+  cout << "sending: " << messageToSerial << endl;
+  
+  this->serialOperations.writeString(messageToSerial.c_str());
   return 0;
 
 };

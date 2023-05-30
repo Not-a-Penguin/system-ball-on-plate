@@ -21,11 +21,13 @@ class Serial{
     ~Serial();
 
     int getJson();
-    int sendJson();    
+    int sendJson(string messageFromSerial);    
   
     bool newData = false;
 
     string rawMessage;
+
+
   //Specific to ball on plate, parse json looking for x and y coordinates
   //and pass them to class atributes
     int parseCoordinates(string& jsonFromSerial);

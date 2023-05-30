@@ -21,27 +21,8 @@ int main(){
 
   thread wsProcessThread(bind(&WsServer::process_messages, &server_instance));
   thread serverThread(bind(runServer, &server_instance, 1836));
-  /*
-  try{
-
-    //Start server message thread
-    thread wsProcessThread(bind(&WsServer::process_messages, &server_instance));
-    
-    //Run asio loop
-    thread serverThread(bind(runServer, &server_instance, 1836));
-
-    cout << "Websocket server started" << endl;
-
-
-  }
-
-  catch(websocketpp::exception const & e){
-    cout << e.what() << endl;
-  }
-
-  catch(...){
-    cout << "Exception occurred" << endl;
-  } */
+  
+  cout << "Websocket server started" << endl;
 
   Serial serial("/dev/ttyUSB0", 115200);
 
@@ -54,11 +35,8 @@ int main(){
     if(serial.newData){
       
       serial.newData = false;
-
       messageFromServer << serial.rawMessage;
-      
-      server_instance.sendBroadcast(messageFromServer.str());
-      
+      server_instance.sendBroadcast(messageFromServer.str()); 
       stringstream().swap(messageFromServer);
 
       cout << "X: " << serial.xPos << " || Y: " << serial.yPos << endl;
@@ -66,6 +44,9 @@ int main(){
       auto stopGetData = high_resolution_clock::now();
       auto durationGetData = duration_cast<microseconds>(stopGetData - start);
       cout << "Time to acquire data: " << durationGetData.count()/1000 << "ms" << endl;
+      
+      //Insert controller code here
+
 
     }
 
