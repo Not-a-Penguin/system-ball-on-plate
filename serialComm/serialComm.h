@@ -3,6 +3,8 @@
 
 #include "serialib.h"
 #include "rapidJson/document.h"
+#include "rapidJson/writer.h"
+#include "rapidJson/stringbuffer.h"
 #include <stdexcept>
 #include <iostream>
 
@@ -21,7 +23,6 @@ class Serial{
     ~Serial();
 
     int getJson();
-    int sendJson(string messageFromSerial);    
   
     bool newData = false;
 
@@ -30,8 +31,10 @@ class Serial{
 
   //Specific to ball on plate, parse json looking for x and y coordinates
   //and pass them to class atributes
-    int parseCoordinates(string& jsonFromSerial);
+  //sendJson is set to send 3 ints. Change for whatever you need to send
 
+    int sendJson(int angle1, int angle2, int angle3);    
+    int parseCoordinates(string& jsonFromSerial);
     float xPos;
     float yPos;
 

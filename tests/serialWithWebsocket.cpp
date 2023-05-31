@@ -46,7 +46,11 @@ int main(){
       cout << "Time to acquire data: " << durationGetData.count()/1000 << "ms" << endl;
       
       //Insert controller code here
-
+      
+      int angle1 = 10;
+      int angle2 = 22;
+      int angle3 = 33;
+      serial.sendJson(angle1, angle2, angle3); 
 
     }
 

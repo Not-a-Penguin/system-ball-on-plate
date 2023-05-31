@@ -1,7 +1,10 @@
 #include "serialComm.h"
+#include "rapidJson/stringbuffer.h"
+#include "rapidJson/writer.h"
 #include <cassert>
 #include <cstring>
 #include <iostream>
+#include <sstream>
 #include <string>
 
 
@@ -35,11 +38,11 @@ int Serial::getJson(){
       messageFromSerial += rc;
     }
     this->newData = true;
-    this->rawMessage = messageFromSerial;
   }
   
   if(this->newData){
     // cout << "string is: " << messageFromSerial << endl;
+    this->rawMessage = messageFromSerial;
     this->parseCoordinates(messageFromSerial);
     // this->newData = false;
   }
@@ -89,11 +92,21 @@ int Serial::parseCoordinates(string& docFromSerial){
       
 }
 
-int Serial::sendJson(string messageToSerial){
+int Serial::sendJson(int angle1, int angle2, int angle3){
 
-  cout << "sending: " << messageToSerial << endl;
+  StringBuffer messageToSerial;
+  Writer<StringBuffer>writer(messageToSerial);
+
+  writer.StartObject();
+  writer.Key("angle1");
+  writer.Int(angle1); 
+  writer.Key("angle2");
+  writer.Int(angle2);
+  writer.Key("angle3");
+  writer.Int(angle3);
+  writer.EndObject();
   
-  this->serialOperations.writeString(messageToSerial.c_str());
+  this->serialOperations.writeString(messageToSerial.GetString());
   return 0;
 
 };
