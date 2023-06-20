@@ -50,7 +50,7 @@ int main(){
       int angle1 = 10;
       int angle2 = 22;
       int angle3 = 33;
-      serial.sendJson(angle1, angle2, angle3); 
+      // serial.sendJson(angle1, angle2, angle3); 
 
     }
 

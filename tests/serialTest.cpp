@@ -28,7 +28,7 @@ int main(){
       cout << "Time between cycles: " << duration.count()/1000 << "ms" << endl;
     }*/
 
-    serial.sendJson("{\"servo1\"10\"}");
+    // serial.sendJson(100, 20, 40);
     sleep(1);
 
   }

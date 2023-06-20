@@ -92,11 +92,15 @@ int Serial::parseCoordinates(string& docFromSerial){
       
 }
 
-int Serial::sendJson(int angle1, int angle2, int angle3){
+int Serial::sendJson(void){return 0;};
+
+template<typename Key, typename Value, typename... Args>
+int Serial::sendJson(Key key, Value value, Args... args){
 
   StringBuffer messageToSerial;
   Writer<StringBuffer>writer(messageToSerial);
-
+  
+  /*
   writer.StartObject();
   writer.Key("angle1");
   writer.Int(angle1); 
@@ -107,6 +111,7 @@ int Serial::sendJson(int angle1, int angle2, int angle3){
   writer.EndObject();
   
   this->serialOperations.writeString(messageToSerial.GetString());
-  return 0;
+  */
+  return this->sendJson(args...);
 
 };

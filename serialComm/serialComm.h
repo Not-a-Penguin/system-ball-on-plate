@@ -16,9 +16,8 @@ class Serial{
   private:
 
     serialib serialOperations;
-  
+      
   public:
-  
     Serial(const char* port, int baudRate);
     ~Serial();
 
@@ -32,8 +31,11 @@ class Serial{
   //Specific to ball on plate, parse json looking for x and y coordinates
   //and pass them to class atributes
   //sendJson is set to send 3 ints. Change for whatever you need to send
+    
+    template<typename Key, typename Value, typename... Args>
+    int sendJson(Key key, Value value, Args... args);
 
-    int sendJson(int angle1, int angle2, int angle3);    
+    int sendJson(void);    
     int parseCoordinates(string& jsonFromSerial);
     float xPos;
     float yPos;
