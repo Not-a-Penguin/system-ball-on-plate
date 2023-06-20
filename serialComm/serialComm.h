@@ -7,6 +7,8 @@
 #include "rapidJson/stringbuffer.h"
 #include <stdexcept>
 #include <iostream>
+#include <string>
+#include <vector>
 
 using namespace rapidjson;
 using namespace std;
@@ -32,10 +34,8 @@ class Serial{
   //and pass them to class atributes
   //sendJson is set to send 3 ints. Change for whatever you need to send
     
-    template<typename Key, typename Value, typename... Args>
-    int sendJson(Key key, Value value, Args... args);
-
-    int sendJson(void);    
+    
+    int sendJson(vector<const char*> keys, vector<int>values); 
     int parseCoordinates(string& jsonFromSerial);
     float xPos;
     float yPos;

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <vector>
 
 
 Serial::Serial(const char* port, int baudRate){
@@ -79,7 +80,7 @@ int Serial::parseCoordinates(string& docFromSerial){
     throw runtime_error("Json has no member 'yPos'");
     return -1;
   }
-  
+      
   
   if(jsonFromSerial["xPos"].IsNumber() && jsonFromSerial["yPos"].IsNumber()){
     this->xPos = jsonFromSerial["xPos"].GetFloat();
@@ -92,26 +93,22 @@ int Serial::parseCoordinates(string& docFromSerial){
       
 }
 
-int Serial::sendJson(void){return 0;};
+int Serial::sendJson(vector<const char*> keys, vector<int> values){
 
-template<typename Key, typename Value, typename... Args>
-int Serial::sendJson(Key key, Value value, Args... args){
-
+  
   StringBuffer messageToSerial;
   Writer<StringBuffer>writer(messageToSerial);
-  
-  /*
+ 
   writer.StartObject();
-  writer.Key("angle1");
-  writer.Int(angle1); 
-  writer.Key("angle2");
-  writer.Int(angle2);
-  writer.Key("angle3");
-  writer.Int(angle3);
+  
+  for(int i=0; i<=keys.size(); i++){
+    writer.Key(keys[i]);
+    writer.Int(values[i]);
+  }
+
   writer.EndObject();
   
   this->serialOperations.writeString(messageToSerial.GetString());
-  */
-  return this->sendJson(args...);
-
+  return 0;
+  
 };
