@@ -10,7 +10,6 @@
 
 using namespace std;
 using namespace std::chrono;
-
 void runServer(WsServer* server, int port){
   server->run(port);
 }
@@ -31,46 +30,49 @@ int main(){
   while(1){
     
     auto start = high_resolution_clock::now();
-      
+    
     serial.getJson();
     if(serial.newData){
       
       serial.newData = false;
-      messageFromServer << serial.rawMessage;
+
+      //Send raw json string through websocket
+      messageFromServer << serial.rawMessage;   
       server_instance.sendBroadcast(messageFromServer.str()); 
       stringstream().swap(messageFromServer);
 
-      cout << "X: " << serial.xPos << " || Y: " << serial.yPos << endl;
+      //Now would be a good time to declare a variable for everything you
+      //might wanna get from the json object
+      int xPos = serial.serialDoc["xPos"].GetInt();
+      int yPos = serial.serialDoc["yPos"].GetInt();
+      float xAngle = serial.serialDoc["xAngle"].GetFloat();
+      float yAngle = serial.serialDoc["yAngle"].GetFloat();
+
+      
+      //cout << "X: " << xPos << " || Y: " << yPos << endl;
 
       auto stopGetData = high_resolution_clock::now();
       auto durationGetData = duration_cast<microseconds>(stopGetData - start);
-      cout << "Time to acquire data: " << durationGetData.count()/1000 << "ms" << endl;
+      //cout << "Time to acquire data: " << durationGetData.count()/1000 << "ms" << endl;
      
       //Insert controller here. Using the input from the serial
       //to create a control law to construct the desired output
       //
     
-      int angle1 = 10;
-      int angle2 = 22;
-      int angle3 = 34;
+      float angle1 = 10;
+      float angle2 = 22;
+      float angle3 = 34;
 
-      vector<const char*> keys;
-      keys.push_back("Angle1");
-      keys.push_back("Angle2");
-      keys.push_back("Angle3");
-
-      vector<int> values;
-      values.push_back(angle1);
-      values.push_back(angle2);
-      values.push_back(angle3);
-
+      vector<const char*> keys = {"Angle1", "Angle2", "Angle3"};
+      vector<float> values = {angle1, angle2, angle3};
+      
       //Send json. The arguments are in pairs of key and value
       //The method accepts any size as long as each key have its value.
       serial.sendJson(keys, values);
 
-    auto stopProcessData = high_resolution_clock::now();
-    auto durationProcessData = duration_cast<microseconds>(stopProcessData - start);
-    cout << "Time to process data: " << durationProcessData.count()/1000 << "ms" << endl;
+      auto stopProcessData = high_resolution_clock::now();
+      auto durationProcessData = duration_cast<microseconds>(stopProcessData - start);
+      cout << "Time to process data: " << durationProcessData.count()/1000 << "ms" << endl;
     }
   }
 

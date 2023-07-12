@@ -28,19 +28,10 @@ class Serial{
     bool newData = false;
 
     string rawMessage;
-
-
-  //Specific to ball on plate, parse json looking for x and y coordinates
-  //and pass them to class atributes
-  //sendJson is set to send 3 ints. Change for whatever you need to send
-    
-    
-    int sendJson(vector<const char*> keys, vector<int>values); 
-    int parseCoordinates(string& jsonFromSerial);
-    float xPos;
-    float yPos;
-
-    
+    Document serialDoc;
+   
+    int sendJson(vector<const char*> keys, vector<float>values); 
+    Document parseJson(string& jsonFromSerial);   
 
 };
 

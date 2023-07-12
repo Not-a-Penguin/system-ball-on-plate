@@ -10,21 +10,26 @@ project(ball-on-plate
 add_subdirectory(tests)
 add_subdirectory(serialComm)
 add_subdirectory(websocket)
+add_subdirectory(systemIdentification)
+add_subdirectory(scripts)
 
 find_package (Threads REQUIRED)
 
-add_executable(test tests/serialWithWebsocket.cpp)
+add_executable(servoToPlatformIdentification scripts/servoToPlatform.cpp)
 
-target_link_libraries(test PUBLIC ${CMAKE_THREAD_LIBS_INIT}
+target_link_libraries(servoToPlatformIdentification PUBLIC ${CMAKE_THREAD_LIBS_INIT}
 )
 
-target_link_libraries(test PUBLIC Serial)
-target_link_libraries(test PUBLIC serialib)
-target_link_libraries(test PUBLIC Websocket)
+target_link_libraries(servoToPlatformIdentification PUBLIC Serial)
+target_link_libraries(servoToPlatformIdentification PUBLIC serialib)
+target_link_libraries(servoToPlatformIdentification PUBLIC Websocket)
+target_link_libraries(servoToPlatformIdentification PUBLIC mimoIdentification)
 
-target_include_directories(test PUBLIC
+target_include_directories(servoToPlatformIdentification PUBLIC
                             "${PROJECT_BINARY_DIR}"
                             "${PROJECT_SOURCE_DIR}/tests"
                             "${PROJECT_SOURCE_DIR}/serialComm"
                             "${PROJECT_SOURCE_DIR}/websocket"
+                            "${PROJECT_SOURCE_DIR}/systemIdentification"
+                            "${PROJECT_SOURCE_DIR}/scripts"
                             )

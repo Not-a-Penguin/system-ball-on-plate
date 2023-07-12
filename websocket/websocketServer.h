@@ -58,6 +58,8 @@ class WsServer{
     void sendBroadcast(std::string msg);
     server m_server;
 
+    static void runServer(WsServer* server, int port);
+
   private:
 
     typedef std::set<connection_hdl,std::owner_less<connection_hdl> > con_list;

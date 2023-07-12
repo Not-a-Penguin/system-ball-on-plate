@@ -89,7 +89,7 @@ void WsServer::process_messages() {
     else if (a.type == UNSUBSCRIBE) {
       lock_guard<mutex> guard(m_connection_lock);
       m_connections.erase(a.hdl);
-    } 
+    }
 
     else if (a.type == MESSAGE) {
 
@@ -118,4 +118,8 @@ void WsServer::sendBroadcast(std::string msg){
     m_server.send(*it, val.str(), websocketpp::frame::opcode::text);
   }
 
+}
+
+void WsServer::runServer(WsServer* server, int port){
+  server->run(port);
 }

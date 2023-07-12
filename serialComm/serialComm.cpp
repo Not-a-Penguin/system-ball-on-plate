@@ -4,6 +4,7 @@
 #include <cassert>
 #include <cstring>
 #include <iostream>
+#include <ostream>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -42,16 +43,15 @@ int Serial::getJson(){
   }
   
   if(this->newData){
-    // cout << "string is: " << messageFromSerial << endl;
     this->rawMessage = messageFromSerial;
-    this->parseCoordinates(messageFromSerial);
+    this->serialDoc = this->parseJson(messageFromSerial);
     // this->newData = false;
   }
  
   return 0;
 };
 
-int Serial::parseCoordinates(string& docFromSerial){
+Document Serial::parseJson(string& docFromSerial){
  
   // cout << "Received: " << docFromSerial << endl;
   Document jsonFromSerial;
@@ -59,56 +59,40 @@ int Serial::parseCoordinates(string& docFromSerial){
   try{
     //jsonFromSerial.Parse(docFromSerial);
     jsonFromSerial.Parse(docFromSerial.c_str());
-
+    
   }
   catch (int error) {
     throw runtime_error("Failed to parse String into Json.");
-    return -1;
   }
 
-  assert(jsonFromSerial.IsObject());
-
-  //Assert whether or not the variables are present in the Json 
-  //with the correct type
-
-  if(jsonFromSerial.HasMember("xPos") == false){
-    throw runtime_error("Json has no member 'xPos'");
-    return -1;
+  try{
+    assert(jsonFromSerial.IsObject());
   }
-
-  if(jsonFromSerial.HasMember("yPos") == false){
-    throw runtime_error("Json has no member 'yPos'");
-    return -1;
+  catch(int error){
+    throw runtime_error("Json assertion failed.");
   }
-      
   
-  if(jsonFromSerial["xPos"].IsNumber() && jsonFromSerial["yPos"].IsNumber()){
-    this->xPos = jsonFromSerial["xPos"].GetFloat();
-    this->yPos = jsonFromSerial["yPos"].GetFloat();
-
-    return 0;
-  }
-
-  return -1;
-      
+  return jsonFromSerial;
 }
 
-int Serial::sendJson(vector<const char*> keys, vector<int> values){
+int Serial::sendJson(vector<const char*> keys, vector<float> values){
 
-  
+  cout << "Inside sendJson" << endl;
   StringBuffer messageToSerial;
   Writer<StringBuffer>writer(messageToSerial);
  
   writer.StartObject();
-  
-  for(int i=0; i<=keys.size(); i++){
+  cout << "After writer.startObject()" << endl;
+  for(int i=0; i<keys.size(); i++){
+    cout << keys[i] << " -> " << values[i] << endl;
     writer.Key(keys[i]);
     writer.Int(values[i]);
-  }
-
+}
+  cout << "After iterator" << endl;
   writer.EndObject();
   
   this->serialOperations.writeString(messageToSerial.GetString());
+  cout << "returning from sendJson" << endl;
   return 0;
   
 };
