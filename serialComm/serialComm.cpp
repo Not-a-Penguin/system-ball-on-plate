@@ -77,22 +77,18 @@ Document Serial::parseJson(string& docFromSerial){
 
 int Serial::sendJson(vector<const char*> keys, vector<float> values){
 
-  cout << "Inside sendJson" << endl;
   StringBuffer messageToSerial;
   Writer<StringBuffer>writer(messageToSerial);
  
   writer.StartObject();
-  cout << "After writer.startObject()" << endl;
   for(int i=0; i<keys.size(); i++){
-    cout << keys[i] << " -> " << values[i] << endl;
     writer.Key(keys[i]);
     writer.Int(values[i]);
-}
-  cout << "After iterator" << endl;
+  }
   writer.EndObject();
   
   this->serialOperations.writeString(messageToSerial.GetString());
-  cout << "returning from sendJson" << endl;
+  // cout << "returning from sendJson" << endl;
   return 0;
   
 };

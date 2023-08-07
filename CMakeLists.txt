@@ -15,17 +15,17 @@ add_subdirectory(scripts)
 
 find_package (Threads REQUIRED)
 
-add_executable(servoToPlatformIdentification scripts/servoToPlatform.cpp)
+add_executable(controller1 scripts/controller1.cpp)
 
-target_link_libraries(servoToPlatformIdentification PUBLIC ${CMAKE_THREAD_LIBS_INIT}
+target_link_libraries(controller1 PUBLIC ${CMAKE_THREAD_LIBS_INIT}
 )
 
-target_link_libraries(servoToPlatformIdentification PUBLIC Serial)
-target_link_libraries(servoToPlatformIdentification PUBLIC serialib)
-target_link_libraries(servoToPlatformIdentification PUBLIC Websocket)
-target_link_libraries(servoToPlatformIdentification PUBLIC mimoIdentification)
+target_link_libraries(controller1 PUBLIC Serial)
+target_link_libraries(controller1 PUBLIC serialib)
+target_link_libraries(controller1 PUBLIC Websocket)
+target_link_libraries(controller1 PUBLIC mimoIdentification)
 
-target_include_directories(servoToPlatformIdentification PUBLIC
+target_include_directories(controller1 PUBLIC
                             "${PROJECT_BINARY_DIR}"
                             "${PROJECT_SOURCE_DIR}/tests"
                             "${PROJECT_SOURCE_DIR}/serialComm"
